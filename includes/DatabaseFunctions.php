@@ -117,3 +117,16 @@ query($pdo, 'DELETE FROM `' . $table . '`
 WHERE `'.$primaryKey.'` = :id', $parameters);
 }
 
+function save($pdo, $table, $primaryKey, $record) {
+try {
+if ($record[$primaryKey] == '') {
+$record[$primaryKey] = null;
+}
+insert($pdo, $table, $record);
+}
+catch (PDOException $e) {
+update($pdo, $table, $primaryKey, $record);
+}
+}
+
+
