@@ -1,0 +1,16 @@
+{
+  "name": "cake_recipes",
+  "version": "1.0.0",
+  "description": "\u0016web app about cake recipes",
+  "main": "index.php",
+  "dependencies": {
+    "node-sass": "^4.14.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+	"scss": "node-sass -w scss/ -o dist/css/ --recursive"
+  },
+  "author": "Pavel Shvets",
+  "license": "ISC"
+}
