@@ -4,25 +4,19 @@ include __DIR__ . '/../includes/DatabaseFunctions.php';
 
 
 try {
-if (isset($_POST['cakeId'])) {
+if (isset($_POST['cake'])) {
+ $cake = $_POST['cake'];
+$cake['cakeDate'] = new DateTime();
+$cake['authorId'] = 1;
+save($pdo, 'cake', 'cakeId', $cake);
  
- save($pdo, 'cake', 'cakeId', [
-     'cakeId' => $_POST['cakeId'], 
-    'cakeName' => $_POST['cake_name'], 
-    'cakeIngredients' => $_POST['cake_ingredients'], 
-    'cakeRecipe' => $_POST['cake_recipe_text'], 
-    'cakeCuisine' => $_POST['cake_cuisine'], 
-    'cakePicture' => $_POST['cake_picture'], 
-    'authorId' => 1
-     ]);
  
-
 header('location: cake_recipes.php');
 } else {
  if (isset($_GET['id'])) {
 $cake = getItemById($pdo, 'cake', 'cakeId', $_GET['id']);
  }
-$title = 'Edit cake recipe';
+$title = 'Add or edit cake recipe';
 ob_start();
 include __DIR__ . '/../templates/edit_cake_recipe.html.php';
 $output = ob_get_clean();
