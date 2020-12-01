@@ -12,8 +12,8 @@
 <nav>
  <ul>
 <li><a href="index.php">Home</a></li>
-<li><a href="cake_recipes.php">Cake Recipes List</a></li>
-<li><a href="edit_cake_recipe.php">Add a new Cake Recipe</a></li>
+<li><a href="index.php?action=listCakeRecipes">Cake Recipes List</a></li>
+<li><a href="index.php?action=edit">Add a new Cake Recipe</a></li>
 </ul>
 </nav>
 <main>

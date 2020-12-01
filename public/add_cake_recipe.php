@@ -2,7 +2,7 @@
 if (isset($_POST['cake_recipe_text'])) {
 try {
 include __DIR__ . '/../includes/DatabaseConnection.php';
-include __DIR__ . '/../includes/DatabaseFunctions.php';
+include __DIR__ . '/../classes/DatabaseTable.php';
 
 $date = new DateTime();
 insert($pdo, 'cake', [ 

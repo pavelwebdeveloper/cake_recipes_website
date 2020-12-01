@@ -1,20 +1,21 @@
 <?php
 include __DIR__ . '/../includes/DatabaseConnection.php';
-include __DIR__ . '/../includes/DatabaseFunctions.php';
+include __DIR__ . '/../classes/DatabaseTable.php';
 
+$cakesTable = new DatabaseTable($pdo, 'cake', 'cakeId');
 
 try {
 if (isset($_POST['cake'])) {
  $cake = $_POST['cake'];
 $cake['cakeDate'] = new DateTime();
 $cake['authorId'] = 1;
-save($pdo, 'cake', 'cakeId', $cake);
+$cakesTable->save($cake);
  
  
 header('location: cake_recipes.php');
 } else {
  if (isset($_GET['id'])) {
-$cake = getItemById($pdo, 'cake', 'cakeId', $_GET['id']);
+$cake = $cakesTable->getItemById($_GET['id']);
  }
 $title = 'Add or edit cake recipe';
 ob_start();

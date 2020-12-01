@@ -4,8 +4,8 @@
 include_once __DIR__ .
 '/../includes/DatabaseConnection.php';
 // Include the file that provides the `totalJokes` function
-include_once __DIR__ .
-'/../includes/DatabaseFunctions.php';
+
+include __DIR__ . '/../classes/DatabaseTable.php';
 // Call the function
 echo totalCakeRecipes($pdo)."<br>";
 

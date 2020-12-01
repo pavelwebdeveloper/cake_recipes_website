@@ -2,16 +2,18 @@
 
 try {
 include __DIR__ . '/../includes/DatabaseConnection.php';
-include __DIR__ . '/../includes/DatabaseFunctions.php';
+include __DIR__ . '/../classes/DatabaseTable.php';
 
 //$output = 'Database connection established.';
 
+$cakeRecipesTable = new DatabaseTable($pdo, 'cake', 'cakeId');
+$authorsTable = new DatabaseTable($pdo, 'author', 'id');
+$result = $cakeRecipesTable->findAll();
 
-$result = findAll($pdo, 'cake');
+
 $cakes = [];
 foreach ($result as $cake) {
-$author = getItemById($pdo, 'author', 'id',
-$cake['authorId']);
+$author = $authorsTable->getItemById($cake['authorId']);
 $cakes[] = [
 'cakeId' => $cake['cakeId'],
 'cakeName' => $cake['cakeName'],
@@ -26,7 +28,7 @@ $cakes[] = [
 }
 
 
-$totalCakeRecipes = totalRecords($pdo, 'cake');
+$totalCakeRecipes = $cakeRecipesTable->totalRecords();
 
 $title = 'Cake recipes list';
 

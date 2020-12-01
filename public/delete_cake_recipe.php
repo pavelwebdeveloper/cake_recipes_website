@@ -6,9 +6,11 @@
 if (isset($_POST['cakeId'])) {
 try {
 include __DIR__ . '/../includes/DatabaseConnection.php';
-include __DIR__ . '/../includes/DatabaseFunctions.php';
+include __DIR__ . '/../classes/DatabaseTable.php';
 
-delete($pdo, 'cake', 'cakeId', $_POST['cakeId']);
+$cakesTable = new DatabaseTable($pdo, 'cake', 'cakeId');
+$cakesTable->delete($_POST['cakeId']);
+
 
 header('location: cake_recipes.php');
 } catch (PDOException $e) {

@@ -24,10 +24,10 @@ echo $date->format('jS F Y');
 ?>)
 </p>
 
-<a href="edit_cake_recipe.php?id=<?=$cake['cakeId']?>">
+<a href="index.php?action=edit&id=<?=$cake['cakeId']?>">
 Edit the cake recipe</a>
 
-<form action="delete_cake_recipe.php" method="post">
+<form action="index.php?action=delete" method="post">
  <input type="hidden" id="cakeId" name="cakeId"
          value="<?=$cake['cakeId'];?>">
  <input class="submitBtn" type="submit" value="Delete the recipe">
