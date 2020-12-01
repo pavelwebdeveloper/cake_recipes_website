@@ -39,27 +39,27 @@ class CakeRecipeController{
                   $title = 'Cake recipes list';
 
                   // Start the buffer
-                  ob_start();
+                  //ob_start();
 
                   // Include the template. The PHP code will be executed,
                   // but the resulting HTML will be stored in the buffer
                   // rather than sent to the browser.
-                  include __DIR__ . '/../templates/cake_recipes.html.php';
+                  //include __DIR__ . '/../templates/cake_recipes.html.php';
                   // Read the contents of the output buffer and store them
                   // in the $output variable for use in layout.html.php
-                  $output =  ob_get_clean();
+                  //$output =  ob_get_clean();
                   
-                  return ['output' => $output, 'title' => $title];
+                  return ['template' => 'cake_recipes.html.php', 'title' => $title];
                    
                  }
                  
                  public function home(){
                   $title = 'Cake Recipes Database';
-                  ob_start();
-                  include __DIR__ . '/../templates/home.html.php';
-                  $output = ob_get_clean();
+                  //ob_start();
+                  //include __DIR__ . '/../templates/home.html.php';
+                  //$output = ob_get_clean();
                   
-                  return ['output' => $output, 'title' => $title];
+                  return ['template' => 'home.html.php', 'title' => $title];
                   
                   include __DIR__ . '/../templates/layout.html.php';
                    
@@ -85,11 +85,11 @@ class CakeRecipeController{
                  $cake = $this->cakeRecipesTable->getItemById($_GET['id']);
                   }
                  $title = 'Add or edit cake recipe';
-                 ob_start();
-                 include __DIR__ . '/../templates/edit_cake_recipe.html.php';
-                 $output = ob_get_clean();
+                 //ob_start();
+                 //include __DIR__ . '/../templates/edit_cake_recipe.html.php';
+                 //$output = ob_get_clean();
                  
-                 return ['output' => $output, 'title' => $title];
+                 return ['template' => 'edit_cake_recipe.html.php', 'title' => $title];
                  }
                  }
 }

@@ -31,7 +31,9 @@ $action = $_GET['action'] ?? 'home';
 $page = $CakeRecipeController->$action();
 
 $title = $page['title'];
-$output = $page['output'];
+ob_start();
+include __DIR__ . '/../templates/' . $page['template'];
+$output = ob_get_clean();
  
 } catch (PDOException $e) {
 $title = 'An error has occurred';
