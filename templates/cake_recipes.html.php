@@ -1,7 +1,7 @@
 
 <?php //var_dump($cakes);?>
 
-<p><?=$totalCakeRecipes?> cake recipes have been submitted to the Internet Cake Recipe Database.</p>
+<p><?=$variables['totalCakeRecipes']?> cake recipes have been submitted to the Internet Cake Recipe Database.</p>
 
 <?='<ul>'?>
 <?php foreach ($cakes as $cake): ?>

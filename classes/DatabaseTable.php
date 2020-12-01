@@ -93,6 +93,8 @@ class DatabaseTable
         */
        //modified update function with the possibility to send parameters to the query function dynamically
        private function update($fields) {
+        
+                        
         $query = 'UPDATE `'.$this->table.'` SET ';
 
         // Loop through the array of fields
@@ -105,9 +107,10 @@ class DatabaseTable
        $fields = $this->processDates($fields);
 
        // Set the :primaryKey variable
-       $fields['primaryKey'] = $fields[$primaryKey];  
-
+       $fields['primaryKey'] = $fields[$this->primaryKey];  
+      
        $this->query($query, $fields);
+         
        }
 
        /*
@@ -132,6 +135,8 @@ class DatabaseTable
        }
 
        public function save($record) {
+        
+        
        try {
        if ($record[$this->primaryKey] == '') {
        $record[$this->primaryKey] = null;
@@ -141,6 +146,7 @@ class DatabaseTable
        catch (PDOException $e) {
        $this->update($record);
        }
+       
        }
 
 

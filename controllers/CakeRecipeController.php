@@ -49,7 +49,12 @@ class CakeRecipeController{
                   // in the $output variable for use in layout.html.php
                   //$output =  ob_get_clean();
                   
-                  return ['template' => 'cake_recipes.html.php', 'title' => $title];
+                  return ['template' => 'cake_recipes.html.php', 'title' => $title,
+                             'variables' => [
+                             'totalCakeRecipes' => $totalCakeRecipes,
+                             'cakes' => $cakes
+                             ]
+                          ];
                    
                  }
                  
@@ -76,10 +81,11 @@ class CakeRecipeController{
                  $cake = $_POST['cake'];
                  $cake['cakeDate'] = new DateTime();
                  $cake['authorId'] = 1;
+                 
                  $this->cakeRecipesTable->save($cake);
-
-
+                   
                  header('location: index.php?action=listCakeRecipes');
+                  
                  } else {
                   if (isset($_GET['id'])) {
                  $cake = $this->cakeRecipesTable->getItemById($_GET['id']);
@@ -89,7 +95,11 @@ class CakeRecipeController{
                  //include __DIR__ . '/../templates/edit_cake_recipe.html.php';
                  //$output = ob_get_clean();
                  
-                 return ['template' => 'edit_cake_recipe.html.php', 'title' => $title];
+                 return ['template' => 'edit_cake_recipe.html.php', 'title' => $title,
+                               'variables' => [
+                               'cake' => $cake ?? null
+                               ]
+                           ];
                  }
                  }
 }
