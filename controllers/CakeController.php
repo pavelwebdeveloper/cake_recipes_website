@@ -1,6 +1,6 @@
 <?php
 
-class CakeRecipeController{
+class CakeController{
         private $authorsTable;
         private $cakeRecipesTable;
         
