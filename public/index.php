@@ -4,10 +4,14 @@
 //require_once __DIR__ . '/../library/connections.php';
 function loadTemplate($templateFileName, $variables = [])
 {
-extract($variables);
-ob_start();
-include __DIR__ . '/../templates/' . $templateFileName;
-return ob_get_clean();
+         extract($variables);
+         // Start the buffer
+         ob_start();
+         // Include the template. The PHP code will be executed, but the resulting HTML will be stored in the buffer
+         // rather than sent to the browser.
+         include __DIR__ . '/../templates/' . $templateFileName;
+         // Read the contents of the output buffer and store them in the $output variable for use in layout.html.php
+         return ob_get_clean();                  
 }
 
 try {
@@ -15,24 +19,71 @@ include __DIR__ . '/../includes/DatabaseConnection.php';
 include __DIR__ . '/../classes/DatabaseTable.php';
 $cakeRecipesTable = new DatabaseTable($pdo, 'cake', 'cakeId');
 $authorsTable = new DatabaseTable($pdo, 'author', 'id');
-$action = $_GET['action'] ?? 'home';
-// select a default controller (“cake”) if no $_GET['controller'] variable is set:
-$controllerName = $_GET['controller'] ?? 'cake';
 
-// redirect to the lowercase URL if required
-if ($action == strtolower($action) && $controllerName == strtolower($controllerName)) {
- //  take the name from $controllerName and get the class name by making the first letter uppercase (the ucfirst 
-//  function does this for any string) and then appending the string Controller
-$className = ucfirst($controllerName) . 'Controller';
-//  include the relevant file and create the controller instance
-include __DIR__ . '/../controllers/' . $className . '.php';
-$controller = new $className($cakeRecipesTable, $authorsTable);
-$page = $controller->$action();
-}
-else {
+//if no route variable is set, use 'joke/home'
+//$route = $_GET['route'] ?? 'cake/home';
+$route = substr($_SERVER['REQUEST_URI'],43);
+//$route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+
+/*
+echo "Hi there !!!!!!!!!!!!!!!!!!"."<br>";
+echo $_SERVER['REQUEST_URI']."<br>";
+echo substr($_SERVER['REQUEST_URI'],43)."<br>";
+echo ltrim($_SERVER['REQUEST_URI'], '/phpprojects/cake_recipes/public/index.php')."<br>";
+exit;
+
+echo strtok('/')."<br>";
+echo strtok('/')."<br>";
+echo strtok('/')."<br>";
+echo strtok('/')."<br>";
+ 
+/*
+echo $route."<br>";
+echo strtolower($route);
+exit;
+ * 
+ */
+ 
+ if($route === 'cake/delete'){
+  $_GET['id']="";
+ }
+ 
+ 
+ 
+if ($route == strtolower($route)) {
+if ($route === 'cake/list') {
+include __DIR__ . '/../classes/controllers/CakeController.php';
+$controller = new CakeController($cakeRecipesTable,
+$authorsTable);
+$page = $controller->listCakes();
+} elseif ($route === '') { 
+include __DIR__ . '/../classes/controllers/CakeController.php';
+$controller = new CakeController($cakeRecipesTable,
+$authorsTable);
+$page = $controller->home();
+} elseif ($route === 'cake/edit' || $route === 'cake/edit?id='.$_GET['id']) {
+include __DIR__ . '/../classes/controllers/CakeController.php';
+$controller = new CakeController($cakeRecipesTable,
+$authorsTable);
+$page = $controller->edit();
+} elseif ($route === 'cake/delete') {
+include __DIR__ . '/../classes/controllers/CakeController.php';
+$controller = new CakeController($cakeRecipesTable,
+$authorsTable);
+$page = $controller->delete();
+} elseif ($route === 'register') {
+include __DIR__ .
+'/../classes/controllers/RegisterController.php';
+$controller = new RegisterController($authorsTable);
+$page = $controller->showForm();
+} else { 
 http_response_code(301);
-header('location: index.php?controller=' . strtolower($controllerName) . '&action=' . strtolower($action));
+header('location: /phpprojects/cake_recipes/public/index.php/');
 }
+}
+
+
+
 
 
 /*
@@ -76,6 +127,8 @@ $title = 'An error has occurred';
 $output = 'Database error: ' . $e->getMessage() . ' in '
 . $e->getFile() . ':' . $e->getLine();
 }
+
+
 include __DIR__ . '/../templates/layout.html.php';
 
 

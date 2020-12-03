@@ -134,8 +134,7 @@ class DatabaseTable
        WHERE `'.$this->primaryKey.'` = :id', $parameters);
        }
 
-       public function save($record) {
-        
+       public function save($record) {        
         
        try {
        if ($record[$this->primaryKey] == '') {
@@ -148,6 +147,5 @@ class DatabaseTable
        }
        
        }
-
-
+       
 }
