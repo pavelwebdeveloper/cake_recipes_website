@@ -11,7 +11,7 @@
 </header>
 <nav>
  <ul>
-<li><a href="/phpprojects/cake_recipes/public/index.php/">Home</a></li>
+<li><a href="/phpprojects/cake_recipes/public/index.php">Home</a></li>
 <li><a href="/phpprojects/cake_recipes/public/index.php/cake/list">Cake Recipes List</a></li>
 <li><a href="/phpprojects/cake_recipes/public/index.php/cake/edit">Add a new Cake Recipe</a></li>
 </ul>

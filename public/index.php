@@ -1,7 +1,7 @@
 <?php
 
 // This is the cakes website controller
-//require_once __DIR__ . '/../library/connections.php';
+
 function loadTemplate($templateFileName, $variables = [])
 {
          extract($variables);
@@ -20,98 +20,42 @@ include __DIR__ . '/../classes/DatabaseTable.php';
 $cakeRecipesTable = new DatabaseTable($pdo, 'cake', 'cakeId');
 $authorsTable = new DatabaseTable($pdo, 'author', 'id');
 
-//if no route variable is set, use 'joke/home'
-//$route = $_GET['route'] ?? 'cake/home';
-$route = substr($_SERVER['REQUEST_URI'],43);
-//$route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
+$route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
-/*
-echo "Hi there !!!!!!!!!!!!!!!!!!"."<br>";
-echo $_SERVER['REQUEST_URI']."<br>";
-echo substr($_SERVER['REQUEST_URI'],43)."<br>";
-echo ltrim($_SERVER['REQUEST_URI'], '/phpprojects/cake_recipes/public/index.php')."<br>";
-exit;
-
-echo strtok('/')."<br>";
-echo strtok('/')."<br>";
-echo strtok('/')."<br>";
-echo strtok('/')."<br>";
  
-/*
-echo $route."<br>";
-echo strtolower($route);
-exit;
- * 
- */
- 
- if($route === 'cake/delete'){
-  $_GET['id']="";
- }
- 
- 
- 
+ // testing if $route has lower case value
 if ($route == strtolower($route)) {
-if ($route === 'cake/list') {
+ if ($route === 'phpprojects/cake_recipes/public/index.php/cake/list') {
 include __DIR__ . '/../classes/controllers/CakeController.php';
 $controller = new CakeController($cakeRecipesTable,
 $authorsTable);
 $page = $controller->listCakes();
-} elseif ($route === '') { 
+ } elseif ($route === 'phpprojects/cake_recipes/public/index.php') { 
 include __DIR__ . '/../classes/controllers/CakeController.php';
 $controller = new CakeController($cakeRecipesTable,
 $authorsTable);
 $page = $controller->home();
-} elseif ($route === 'cake/edit' || $route === 'cake/edit?id='.$_GET['id']) {
+ } elseif ($route === 'phpprojects/cake_recipes/public/index.php/cake/edit') {
 include __DIR__ . '/../classes/controllers/CakeController.php';
 $controller = new CakeController($cakeRecipesTable,
 $authorsTable);
 $page = $controller->edit();
-} elseif ($route === 'cake/delete') {
+ } elseif ($route === 'phpprojects/cake_recipes/public/index.php/cake/delete') {
 include __DIR__ . '/../classes/controllers/CakeController.php';
 $controller = new CakeController($cakeRecipesTable,
 $authorsTable);
 $page = $controller->delete();
-} elseif ($route === 'register') {
+ } elseif ($route === 'phpprojects/cake_recipes/public/index.php/register') {
 include __DIR__ .
 '/../classes/controllers/RegisterController.php';
 $controller = new RegisterController($authorsTable);
 $page = $controller->showForm();
-} else { 
-http_response_code(301);
-header('location: /phpprojects/cake_recipes/public/index.php/');
-}
-}
-
-
-
-
-
-/*
-if (isset($_GET['edit'])) {
-$page = $controller->edit();
-} elseif (isset($_GET['delete'])) {
-$page = $controller->delete();
-} elseif (isset($_GET['list'])) {
-$page = $controller->listCakeRecipes();
 } else {
-$page = $controller->home();
-}*/
-
-
-
-// testing if $action has lower case value if not then redirecting and telling the search engine that redirect is permanent with code 301
-/*
-if ($action == strtolower($action)) {
-$page = $controller->$action();
-} else {
+// telling the search engine that redirect is permanent with code 301 
 http_response_code(301);
-header('location: index.php?action=' . strtolower($action));
+header('location: /phpprojects/cake_recipes/public/index.php?route=' . strtolower($route));
 }
- * *
- */
-
-
-//$page = $controller->$action();
+}
 
 $title = $page['title'];
 
