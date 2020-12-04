@@ -2,6 +2,7 @@
 
 // This is the cakes website controller
 
+/*
 function loadTemplate($templateFileName, $variables = [])
 {
          extract($variables);
@@ -13,17 +14,30 @@ function loadTemplate($templateFileName, $variables = [])
          // Read the contents of the output buffer and store them in the $output variable for use in layout.html.php
          return ob_get_clean();                  
 }
+ * *
+ */
 
 try {
+ include __DIR__ . '/../classes/EntryPoint.php';
+ include __DIR__ . '/../classes/CakeRecipesdbRoutes.php';
+
+ 
+/* 
 include __DIR__ . '/../includes/DatabaseConnection.php';
 include __DIR__ . '/../classes/DatabaseTable.php';
 $cakeRecipesTable = new DatabaseTable($pdo, 'cake', 'cakeId');
 $authorsTable = new DatabaseTable($pdo, 'author', 'id');
+ * *
+ */
 
 $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
+$entryPoint = new EntryPoint($route, new CakeRecipesdbRoutes());
+$entryPoint->run();
+
  
  // testing if $route has lower case value
+/*
 if ($route == strtolower($route)) {
  if ($route === 'phpprojects/cake_recipes/public/index.php/cake/list') {
 include __DIR__ . '/../classes/controllers/CakeController.php';
@@ -65,14 +79,11 @@ $page['variables']);
 } else {
 $output = loadTemplate($page['template']);
 }
- 
+*/
 } catch (PDOException $e) {
 $title = 'An error has occurred';
 $output = 'Database error: ' . $e->getMessage() . ' in '
 . $e->getFile() . ':' . $e->getLine();
-}
-
 
 include __DIR__ . '/../templates/layout.html.php';
-
-
+}
