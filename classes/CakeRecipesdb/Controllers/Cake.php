@@ -1,6 +1,9 @@
 <?php
 
-class CakeController{
+namespace CakeRecipesdb\Controllers;
+use \Ninja\DatabaseTable;
+
+class Cake{
         private $authorsTable;
         private $cakeRecipesTable;
         
@@ -65,7 +68,7 @@ class CakeController{
         public function edit(){
                           if (isset($_POST['cake'])) {
                           $cake = $_POST['cake'];
-                          $cake['cakeDate'] = new DateTime();
+                          $cake['cakeDate'] = new \DateTime();
                           $cake['authorId'] = 1;
 
                           $this->cakeRecipesTable->save($cake);

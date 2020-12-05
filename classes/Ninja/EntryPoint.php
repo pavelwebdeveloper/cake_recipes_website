@@ -1,5 +1,7 @@
 <?php
 
+namespace Ninja;
+
 class EntryPoint {
       private $route;
       private $routes;
@@ -23,7 +25,7 @@ class EntryPoint {
                         ob_start();
                         // Include the template. The PHP code will be executed, but the resulting HTML will be stored in the buffer
                         // rather than sent to the browser.
-                        include __DIR__ . '/../templates/' . $templateFileName;
+                        include __DIR__ . '/../../templates/' . $templateFileName;
                         // Read the contents of the output buffer and store them in the $output variable for use in layout.html.php
                         return ob_get_clean();                  
                }
@@ -37,7 +39,7 @@ class EntryPoint {
                           } else {
                           $output = $this->loadTemplate($page['template']);
                           }
-                          include __DIR__ . '/../templates/layout.html.php';
+                          include __DIR__ . '/../../templates/layout.html.php';
                    }
 
       }

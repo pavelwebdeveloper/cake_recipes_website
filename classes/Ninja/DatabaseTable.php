@@ -1,12 +1,14 @@
 <?php
 
+namespace Ninja;
+
 class DatabaseTable
 {
        private $pdo;
        private $table;
        private $primaryKey;
        
-       public function __construct(PDO $pdo, string $table, string $primaryKey) {
+       public function __construct(\PDO $pdo, string $table, string $primaryKey) {
         $this->pdo = $pdo;
         $this->table = $table;
         $this->primaryKey = $primaryKey;
@@ -22,7 +24,7 @@ class DatabaseTable
        // Loop through the array of fields
          foreach ($fields as $key => $value) {
           // If any of the values are a DateTime object
-           if ($value instanceof DateTime) {
+           if ($value instanceof \DateTime) {
             // Then replace the value in the array with the date
             // in the format Y-m-d H:i:s
            $fields[$key] = $value->format('Y-m-d H:i:s');
@@ -142,7 +144,7 @@ class DatabaseTable
        }
        $this->insert($record);
        }
-       catch (PDOException $e) {
+       catch (\PDOException $e) {
        $this->update($record);
        }
        
