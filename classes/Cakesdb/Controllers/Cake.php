@@ -1,24 +1,24 @@
 <?php
 
-namespace CakeRecipesdb\Controllers;
+namespace Cakesdb\Controllers;
 use \Ninja\DatabaseTable;
 
 class Cake{
         private $authorsTable;
-        private $cakeRecipesTable;
+        private $cakesTable;
         
        
         
-        public function __construct(DatabaseTable $cakeRecipesTable,
+        public function __construct(DatabaseTable $cakesTable,
                  DatabaseTable $authorsTable) {
-                 $this->cakeRecipesTable = $cakeRecipesTable;
+                 $this->cakesTable = $cakesTable;
                  $this->authorsTable = $authorsTable;
                  }
          
                  
         public function listCakes(){
                   
-                           $result = $this->cakeRecipesTable->findAll();
+                           $result = $this->cakesTable->findAll();
 
                            $cakes = [];
                            foreach ($result as $cake) {
@@ -36,13 +36,13 @@ class Cake{
                            ];
                            }
 
-                           $totalCakeRecipes = $this->cakeRecipesTable->totalRecords();
+                           $totalCakes = $this->cakesTable->totalRecords();
 
                            $title = 'Cake recipes list';
 
                            return ['template' => 'cake_recipes.html.php', 'title' => $title,
                                       'variables' => [
-                                      'totalCakeRecipes' => $totalCakeRecipes,
+                                      'totalCakes' => $totalCakes,
                                       'cakes' => $cakes
                                       ]
                                    ];
@@ -59,13 +59,24 @@ class Cake{
                  
         public function delete(){
          
-                          $this->cakeRecipesTable->delete($_POST['cakeId']);
+                          $this->cakesTable->delete($_POST['cakeId']);
 
                           header('location: /phpprojects/cake_recipes/public/index.php/cake/list');
                  }
+        
+                 
+        public function saveEdit() {
+                         $cake = $_POST['cake'];
+                         $cake['cakeDate'] = new \DateTime();
+                         $cake['authorId'] = 1;
+                         $this->cakesTable->save($cake);
+                         header('location: /phpprojects/cake_recipes/public/index.php/cake/list');
+               }
                  
                  
         public function edit(){
+         /*
+        }
                           if (isset($_POST['cake'])) {
                           $cake = $_POST['cake'];
                           $cake['cakeDate'] = new \DateTime();
@@ -76,8 +87,10 @@ class Cake{
                           header('location: /phpprojects/cake_recipes/public/index.php/cake/list');
 
                           } else {
+          * *
+          */
                            if (isset($_GET['id'])) {
-                          $cake = $this->cakeRecipesTable->getItemById($_GET['id']);
+                          $cake = $this->cakesTable->getItemById($_GET['id']);
                            }
                           $title = 'Add or edit cake recipe';
 
@@ -87,7 +100,7 @@ class Cake{
                                         'cake' => $cake ?? null
                                         ]
                                     ];
-                          }
+                          
                  }
 }
 
