@@ -22,7 +22,7 @@ class Cake{
 
                            $cakes = [];
                            foreach ($result as $cake) {
-                           $author = $this->authorsTable->getItemById($cake['authorId']);
+                           $author = $this->authorsTable->findById($cake['authorId']);
                            $cakes[] = [
                            'cakeId' => $cake['cakeId'],
                            'cakeName' => $cake['cakeName'],
@@ -50,11 +50,12 @@ class Cake{
                  }
                  
         public function home(){
-                          $title = 'Cake Recipes Database';
-
+                          $title = 'Cake Recipes Database';                
+                          
+                          
                           return ['template' => 'home.html.php', 'title' => $title];
 
-                          include __DIR__ . '/../templates/layout.html.php';                   
+                          //include __DIR__ . '/../templates/layout.html.php';                   
                  }
                  
         public function delete(){
@@ -90,7 +91,7 @@ class Cake{
           * *
           */
                            if (isset($_GET['id'])) {
-                          $cake = $this->cakesTable->getItemById($_GET['id']);
+                          $cake = $this->cakesTable->findById($_GET['id']);
                            }
                           $title = 'Add or edit cake recipe';
 
@@ -99,8 +100,7 @@ class Cake{
                                         'variables' => [
                                         'cake' => $cake ?? null
                                         ]
-                                    ];
-                          
-                 }
+                                    ];                          
+                 }        
 }
 

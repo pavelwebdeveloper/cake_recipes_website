@@ -44,12 +44,21 @@ class DatabaseTable
 
 
        // a shorter version of the function to get a specific cake recipe from the database
-       public function getItemById($id) {
+       public function findById($id) {
         // Create the array of $parameters for use in the query function
        $parameters = [':id' => $id];
        // call the query function and provide the $parameters array
        $query = $this->query('SELECT * FROM `'.$this->table.'`WHERE `'.$this->primaryKey.'` = :id', $parameters);
        return $query->fetch();
+       }
+       
+       public function find($column, $value) {
+       $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = :value';
+       $parameters = [
+       'value' => $value
+       ];
+       $query = $this->query($query, $parameters);
+       return $query->fetchAll();
        }
 
        /*

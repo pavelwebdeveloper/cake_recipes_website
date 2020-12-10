@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="cake_recipes.css">
+<link rel="stylesheet" href="/phpprojects/cake_recipes/templates/css/cakes.css">
 <title><?=$title?></title>
+<?=$browser."<br><br><br><br>"?>
 </head>
 <body>
 <header>
@@ -14,6 +15,7 @@
 <li><a href="/phpprojects/cake_recipes/public/index.php">Home</a></li>
 <li><a href="/phpprojects/cake_recipes/public/index.php/cake/list">Cake Recipes List</a></li>
 <li><a href="/phpprojects/cake_recipes/public/index.php/cake/edit">Add a new Cake Recipe</a></li>
+<li><a href="/phpprojects/cake_recipes/public/index.php/author/register">Register a user</a></li>
 </ul>
 </nav>
 <main>
