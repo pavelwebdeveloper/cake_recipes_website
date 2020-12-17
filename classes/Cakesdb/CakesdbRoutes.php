@@ -3,26 +3,54 @@
 namespace Cakesdb;
 
 class CakesdbRoutes  implements \Ninja\Routes {
-          public function getRoutes() {
-                                       
-                                include __DIR__ . '/../../includes/DatabaseConnection.php';
-                                //include __DIR__ . '/../classes/DatabaseTable.php';
-                                $cakesTable = new \Ninja\DatabaseTable($pdo, 'cake', 'cakeId');
-                                $authorsTable = new \Ninja\DatabaseTable($pdo, 'author', 'id');
+ 
+          private $authorsTable;
+          private $cakesTable;
+          private $authentication;
+          
+          public function __construct()
+                   {
+                   include __DIR__ . '/../../includes/DatabaseConnection.php';
+                   $this->cakesTable = new \Ninja\DatabaseTable($pdo, 'cake', 'cakeId');
+                   $this->authorsTable = new \Ninja\DatabaseTable($pdo, 'author', 'id');
+                   $this->authentication =  new \Ninja\Authentication($this->authorsTable, 'email', 'password');
+                   }
+ 
+          public function getRoutes(): array {   
+           
+            
                                 
-                                $cakeController = new \Cakesdb\Controllers\Cake($cakesTable, $authorsTable);
                                 
-                                $authorController = new \Cakesdb\Controllers\Register($authorsTable);
+                                $cakeController = new \Cakesdb\Controllers\Cake($this->cakesTable, $this->authorsTable);
                                 
-                                //$pattern = 'phpprojects/cake_recipes/public/index.php'."[abc]";
+                                $authorController = new \Cakesdb\Controllers\Register($this->authorsTable);
                                 
+                                $loginController = new \Cakesdb\Controllers\Login($this->authentication);
+                                                                                             
                                 $routes = [
+                                    'phpprojects/cake_recipes/public/index.php/login' => [
+                                    'GET' => [
+                                    'controller' => $loginController,
+                                    'action' => 'loginForm'
+                                        ],
+                                    'POST' => [
+                                    'controller' => $loginController,
+                                    'action' => 'processLogin'
+                                    ]
+                                    ],
+                                    'phpprojects/cake_recipes/public/index.php/login/success' => [
+                                    'GET' => [
+                                    'controller' => $loginController,
+                                    'action' => 'success'
+                                    ],
+                                    'login' => true
+                                    ],
                                     'phpprojects/cake_recipes/public/index.php/author/register' => [
                                     'GET' => [
                                     'controller' => $authorController,
                                     'action' => 'registrationForm'
                                     ],
-                                        'POST' => [
+                                    'POST' => [
                                     'controller' => $authorController,
                                     'action' => 'registerUser'
                                     ]
@@ -41,13 +69,15 @@ class CakesdbRoutes  implements \Ninja\Routes {
                                      'GET' => [
                                      'controller' => $cakeController,
                                      'action' => 'edit'
-                                     ]
+                                     ],
+                                     'login' => true
                                      ],
                                      'phpprojects/cake_recipes/public/index.php/cake/delete' => [
                                      'POST' => [
                                      'controller' => $cakeController,
                                      'action' => 'delete'
-                                     ]
+                                     ],
+                                     'login' => true
                                      ],
                                      'phpprojects/cake_recipes/public/index.php/cake/list' => [
                                      'GET' => [
@@ -59,6 +89,12 @@ class CakesdbRoutes  implements \Ninja\Routes {
                                      'GET' => [
                                      'controller' => $cakeController,
                                      'action' => 'home'
+                                     ]
+                                     ],
+                                     'phpprojects/cake_recipes/public/index.php/login/error' => [
+                                     'GET' => [
+                                     'controller' => $loginController,
+                                     'action' => 'error'
                                      ]
                                      ]
                                   ];
@@ -101,5 +137,10 @@ class CakesdbRoutes  implements \Ninja\Routes {
  * *
  */                  
                               }
+                              
+            public function getAuthentication():  \Ninja\Authentication
+                     {
+                     return $this->authentication;
+                     }
 }
 

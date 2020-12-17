@@ -25,8 +25,8 @@ class Authentication
       $user[0][$this->passwordColumn])) {
       session_regenerate_id();
       $_SESSION['username'] = $username;
-      $_SESSION['password'] =
-      $user[0][$this->passwordColumn];
+      $_SESSION['password'] = $user[0][$this->passwordColumn];
+      $_SESSION['authorId'] = $user[0]['id'];
       return true;
       } else {
       return false;

@@ -33,7 +33,7 @@ if($browser=='Chrome'){
 
 // counting visits to this page with a session
 
-session_start();
+//session_start();
 if (!isset($_SESSION['visits'])) {
 $_SESSION['visits'] = 0;
 }

@@ -55,8 +55,15 @@ class EntryPoint {
                      
              public function run() {
                           $routes = $this->routes->getRoutes();
-                          //echo var_dump($routes);
+                          //echo var_dump($this->routes->getAuthentication()->isLoggedIn());
                           //exit;
+                          if ( isset($routes[$this->route]['login']) && !$this->routes->getAuthentication()->isLoggedIn()) {
+                         // if (isset($routes[$this->route]['login']) && isset($routes[$this->route]['login']) && !$this->routes->getAuthentication()->isLoggedIn()) {
+                          //echo "Hi Pasha Ura";
+                          //exit;
+                          header('location: /phpprojects/cake_recipes/public/index.php/login/error');
+                          }
+                          else {
                           $controller = $routes[$this->route][$this->method]['controller'];
                           $action = $routes[$this->route][$this->method]['action'];
                           //echo var_dump($controller)."<br>";
@@ -104,6 +111,7 @@ class EntryPoint {
                           $output = $this->loadTemplate($page['template'], $page['variables']);
                           }
                           include __DIR__ . '/../../templates/layout.html.php';
+                          }
                    }
                    
                    

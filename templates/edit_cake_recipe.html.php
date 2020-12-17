@@ -4,6 +4,7 @@
 <input type="hidden" name="cake[cakeId]"
 value="<?=$cake['cakeId'] ?? ''?>
 ">
+<?php //var_dump($cake); echo "<br>";?>
 <label for="cake_name">Edit your cake name here:</label><br>
 <input type="text" id="cakeName" name="cake[cakeName]" value="<?=$cake['cakeName'] ?? ''?>"><br>
         <label for="cake_ingredients">Edit the necessary ingredients for your cake here:</label><br>
@@ -18,6 +19,12 @@ rows="3" cols="40"><?=$cake['cakeRecipe'] ?? ''?>
 <input type="text" id="cakeCuisine" name="cake[cakeCuisine]" value="<?=$cake['cakeCuisine'] ?? ''?>"><br>
 <label for="cake_picture">Edit the picture path here:</label><br>
 <input type="text" id="cakePicture" name="cake[cakePicture]" placeholder="images/besquit_cake.jpg" value="<?=$cake['cakePicture'] ?? ''?>"><br><br>
+<input type="hidden" name="cake[cakeDate]"
+value="<?=$cake['cakeDate'] ?? ''?>
+">
+<input type="hidden" name="cake[authorId]"
+value="<?=$cake['authorId'] ?? ''?>
+">
 <input type="submit" value="Save the edited cake recipe"><br>
 </form>
 

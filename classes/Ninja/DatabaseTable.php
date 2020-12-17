@@ -45,6 +45,7 @@ class DatabaseTable
 
        // a shorter version of the function to get a specific cake recipe from the database
        public function findById($id) {
+        
         // Create the array of $parameters for use in the query function
        $parameters = [':id' => $id];
        // call the query function and provide the $parameters array
