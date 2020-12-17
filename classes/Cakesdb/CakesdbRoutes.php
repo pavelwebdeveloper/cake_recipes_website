@@ -21,7 +21,8 @@ class CakesdbRoutes  implements \Ninja\Routes {
             
                                 
                                 
-                                $cakeController = new \Cakesdb\Controllers\Cake($this->cakesTable, $this->authorsTable);
+                                $cakeController = new \Cakesdb\Controllers\Cake($this->cakesTable, $this->authorsTable,
+                                        $this->authentication);
                                 
                                 $authorController = new \Cakesdb\Controllers\Register($this->authorsTable);
                                 
@@ -44,6 +45,12 @@ class CakesdbRoutes  implements \Ninja\Routes {
                                     'action' => 'success'
                                     ],
                                     'login' => true
+                                    ],
+                                    'phpprojects/cake_recipes/public/index.php/logout' => [
+                                    'GET' => [
+                                    'controller' => $loginController,
+                                    'action' => 'logout'
+                                    ]
                                     ],
                                     'phpprojects/cake_recipes/public/index.php/author/register' => [
                                     'GET' => [

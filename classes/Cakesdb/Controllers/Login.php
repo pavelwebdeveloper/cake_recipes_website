@@ -32,6 +32,13 @@ return ['template' => 'login.html.php',
 }
 }
 
+public function logout() {
+session_destroy();
+unset($_SESSION);
+return ['template' => 'logout.html.php',
+'title' => 'You have been logged out'];
+}
+
 
 public function success() {
 return ['template' => 'loginsuccess.html.php',

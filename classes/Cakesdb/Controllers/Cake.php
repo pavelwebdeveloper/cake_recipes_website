@@ -2,6 +2,8 @@
 
 namespace Cakesdb\Controllers;
 use \Ninja\DatabaseTable;
+use \Ninja\Authentication;
+
 
 class Cake{
         private $authorsTable;
@@ -9,10 +11,11 @@ class Cake{
         
        
         
-        public function __construct(DatabaseTable $cakesTable,
-                 DatabaseTable $authorsTable) {
+        public function __construct(DatabaseTable $cakesTable, DatabaseTable $authorsTable,
+Authentication $authentication) {
                  $this->cakesTable = $cakesTable;
                  $this->authorsTable = $authorsTable;
+                 $this->authentication = $authentication;
                  }
          
                  
@@ -69,6 +72,9 @@ class Cake{
         
                  
         public function saveEdit() {
+         
+                         $author = $this->authentication->getUser();
+         
                          $cake = $_POST['cake'];
                          //echo var_dump($cake);
                          //exit;
@@ -83,9 +89,9 @@ class Cake{
                          if(empty($cake['cakeDate'])){
                          $cake['cakeDate'] = new \DateTime();
                          }
-                         if(empty($cake['authorId'])){
-                         $cake['authorId'] = $_SESSION['authorId'];
-                         }
+                         
+                         $cake['authorId'] = $author['id'];
+                         
                           
                          //$cake['authorId'] = 1;
                          $this->cakesTable->save($cake);

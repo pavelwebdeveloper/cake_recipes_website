@@ -16,6 +16,11 @@
 <li><a href="/phpprojects/cake_recipes/public/index.php/cake/list">Cake Recipes List</a></li>
 <li><a href="/phpprojects/cake_recipes/public/index.php/cake/edit">Add a new Cake Recipe</a></li>
 <li><a href="/phpprojects/cake_recipes/public/index.php/author/register">Register a user</a></li>
+<?php if ($loggedIn): ?>
+<li><a href="/phpprojects/cake_recipes/public/index.php/logout">Log out</a></li>
+<?php else: ?>
+<li><a href="/phpprojects/cake_recipes/public/index.php/login">Log in</a></li>
+<?php endif; ?>
 </ul>
 </nav>
 <main>

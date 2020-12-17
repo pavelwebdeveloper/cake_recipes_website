@@ -26,7 +26,6 @@ class Authentication
       session_regenerate_id();
       $_SESSION['username'] = $username;
       $_SESSION['password'] = $user[0][$this->passwordColumn];
-      $_SESSION['authorId'] = $user[0]['id'];
       return true;
       } else {
       return false;
@@ -47,6 +46,16 @@ class Authentication
       } else { 
       return false;
       }
+   }
+   
+   public function getUser() {
+   if ($this->isLoggedIn()) {
+   return $this->users->find($this->usernameColumn,
+   strtolower($_SESSION['username']))[0];
+   }
+   else {
+   return false;
+   }
    }
 }
 

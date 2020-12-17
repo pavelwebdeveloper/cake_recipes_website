@@ -18,5 +18,5 @@ $title = 'An error has occurred';
 $output = 'Database error: ' . $e->getMessage() . ' in '
 . $e->getFile() . ':' . $e->getLine();
 
-include __DIR__ . '/../templates/layout.html.php';
+include __DIR__ . '/../../templates/layout.html.php';
 }

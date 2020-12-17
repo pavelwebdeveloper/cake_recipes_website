@@ -110,7 +110,14 @@ class EntryPoint {
                             */
                           $output = $this->loadTemplate($page['template'], $page['variables']);
                           }
-                          include __DIR__ . '/../../templates/layout.html.php';
+                          //include __DIR__ . '/../../templates/layout.html.php';
+                          
+                          echo $this->loadTemplate('layout.html.php', ['loggedIn' =>
+                          $this->routes->getAuthentication()->isLoggedIn(),
+                          'output' => $output,
+                          'title' => $title,
+                          'browser' => "the current browser is ".$this->detectBrowser()
+                          ]);
                           }
                    }
                    
